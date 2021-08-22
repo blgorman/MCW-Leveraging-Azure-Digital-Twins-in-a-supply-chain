@@ -108,3 +108,24 @@ jobs:
           name: output
           path: output
           
+      #Deploy to storage account here
+      
+      #NOTE: You  must add the secrets to the repo
+      #      secrets.STORAGE_ACCOUNT_NAME => Your storage account name, stored in repo secrets
+      #      secrets.STORAGE_ACCOUNT_CONTAINER => Your output container (eliminate this to use AZ-204-... env folder as container), stored in repo secrets
+      #      env.STORAGE_FOLDER => Folder to route output to in storage container [or storage container root] Defined at the top of this file
+      #      secrets.STORAGE_ACCOUNT_SAS_TOKEN => Your Create/Add/Write SAS Token for your storage account container, stored in secrets [don't store the `?` it's in the path]
+      
+      - name: 'Deploy output to storage'
+        run: |
+          DESTINATION="https://${{ secrets.STORAGE_ACCOUNT_NAME }}.blob.core.windows.net/${{ secrets.STORAGE_ACCOUNT_CONTAINER }}/${{ env.STORAGE_FOLDER }}?${{ secrets.STORAGE_ACCOUNT_SAS }}"
+          echo $DESTINATION   
+          #Download and install azcopy 
+          wget -O azcopy.tar.gz https://aka.ms/downloadazcopy-v10-linux
+          tar -xf azcopy.tar.gz
+          rm azcopy.tar.gz
+          echo "Copying content to Azure blob storage lab folder"
+            
+          azcopy copy 'output/*' $DESTINATION --recursive 
+          
+          echo "Content copied to destination folder at storage"
