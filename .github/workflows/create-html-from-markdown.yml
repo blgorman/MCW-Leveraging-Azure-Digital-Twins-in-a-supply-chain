@@ -8,6 +8,7 @@ env:
   OUTPUT_FOLDER: 'azure-digital-twins'
   OUTPUT_SUBFOLDER_HOL: 'hol'
   OUTPUT_SUBFOLDER_WDS: 'wds'
+  MEDIA_FOLDER: 'media'
 
 #modify this to on push to main if desired
 on:
@@ -55,8 +56,12 @@ jobs:
           sudo chmod -R 755 output/${{ env.OUTPUT_FOLDER }}
           mkdir output/${{ env.OUTPUT_FOLDER }}/${{ env.OUTPUT_SUBFOLDER_HOL }}
           sudo chmod -R 755 output/${{ env.OUTPUT_FOLDER }}/${{ env.OUTPUT_SUBFOLDER_HOL }}
+          mkdir output/${{ env.OUTPUT_FOLDER }}/${{ env.OUTPUT_SUBFOLDER_HOL }}/${{ env.MEDIA_FOLDER }}
+          sudo chmod -R 755 output/${{ env.OUTPUT_FOLDER }}/${{ env.OUTPUT_SUBFOLDER_HOL }}/${{ env.MEDIA_FOLDER }}
           mkdir output/${{ env.OUTPUT_FOLDER }}/${{ env.OUTPUT_SUBFOLDER_WDS }}
           sudo chmod -R 755 output/${{ env.OUTPUT_FOLDER }}/${{ env.OUTPUT_SUBFOLDER_WDS }}
+          mkdir output/${{ env.OUTPUT_FOLDER }}/${{ env.OUTPUT_SUBFOLDER_WDS }}/${{ env.MEDIA_FOLDER }}
+          sudo chmod -R 755 output/${{ env.OUTPUT_FOLDER }}/${{ env.OUTPUT_SUBFOLDER_WDS }}/${{ env.MEDIA_FOLDER }}
           
       # Create HTML files
       - name: 'Create HOL HTML Files'
@@ -89,6 +94,15 @@ jobs:
             cp ${f} output/${{ env.OUTPUT_FOLDER }}/${{ env.OUTPUT_SUBFOLDER_WDS }}
           done
           
+      - name: 'Copy Media HOL'
+        run: |
+          cp -r ./${{ env.MARKDOWN_ROOT_HOL }}/${{ env.MEDIA_FOLDER }}/* output/${{ env.OUTPUT_FOLDER }}/${{ env.OUTPUT_SUBFOLDER_HOL }}/${{ env.MEDIA_FOLDER }}
+      
+      - name: 'Copy Media WDS'
+        run: |
+          cp -r ./${{ env.MARKDOWN_ROOT_WDS }}/${{ env.MEDIA_FOLDER }}/* output/${{ env.OUTPUT_FOLDER }}/${{ env.OUTPUT_SUBFOLDER_WDS }}/${{ env.MEDIA_FOLDER }}
+          
+      
       - uses: actions/upload-artifact@master
         with:
           name: output
