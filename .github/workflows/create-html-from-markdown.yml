@@ -128,3 +128,9 @@ jobs:
           azcopy copy 'output/*' $DESTINATION --recursive 
           
           echo "Content copied to destination folder at storage"
+
+      #Delete Archive to keep storage lower at GitHub (files are in storage account anyway, comment or remove to debug local output at GitHub
+      - name: Delete Output
+        uses: geekyeggo/delete-artifact@v1
+        with:
+          name: output
