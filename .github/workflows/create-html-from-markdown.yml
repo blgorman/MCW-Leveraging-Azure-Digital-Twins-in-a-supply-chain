@@ -89,3 +89,8 @@ jobs:
             cp ${f} output/${{ env.OUTPUT_FOLDER }}/${{ env.OUTPUT_SUBFOLDER_WDS }}
           done
           
+      - uses: actions/upload-artifact@master
+        with:
+          name: output
+          path: output
+          
