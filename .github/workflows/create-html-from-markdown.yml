@@ -3,8 +3,8 @@ name: Create Documentation and Push to Storage
 env: 
   #Replace this with the name of your blob storage folder that hosts the documents for this repo
   STORAGE_FOLDER: 'azure-digital-twins-supply-chain'
-  MARKDOWN_ROOT_HOL: 'Hands-on lab'
-  MARKDOWN_ROOT_WDS: 'Whiteboard Design Session'
+  MARKDOWN_ROOT_HOL: 'Hands-on\ lab'
+  MARKDOWN_ROOT_WDS: 'Whiteboard\ Design\ Session'
   OUTPUT_FOLDER: 'azure-digital-twins'
   OUTPUT_SUBFOLDER_HOL: 'hol'
   OUTPUT_SUBFOLDER_WDS: 'wds'
