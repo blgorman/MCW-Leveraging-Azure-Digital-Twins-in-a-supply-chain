@@ -2,7 +2,7 @@ name: Create Documentation and Push to Storage
 
 env: 
   #Replace this with the name of your blob storage folder that hosts the documents for this repo
-  STORAGE_FOLDER: 'azure-digital-twins-supply-chain'
+  STORAGE_CONTAINER: 'azure-digital-twins-supply-chain'
   MARKDOWN_ROOT_HOL: 'Hands-on\ lab'
   MARKDOWN_ROOT_WDS: 'Whiteboard\ design\ session'
   OUTPUT_FOLDER: 'azure-digital-twins'
@@ -112,12 +112,12 @@ jobs:
       
       #NOTE: You  must add the secrets to the repo
       #      secrets.STORAGE_ACCOUNT_NAME => Your storage account name, stored in repo secrets
-      #      env.STORAGE_FOLDER (Storage Container) => Folder to route output to in storage container [or storage container root] Defined at the top of this file
+      #      env.STORAGE_CONTAINER => storage container root or root/path, Defined at the top of this file
       #      secrets.STORAGE_ACCOUNT_SAS_TOKEN => Your Create/Add/Write SAS Token for your storage account container, stored in secrets [don't store the `?` it's in the path]
       
       - name: 'Deploy output to storage'
         run: |
-          DESTINATION="https://${{ secrets.STORAGE_ACCOUNT_NAME }}.blob.core.windows.net/${{ env.STORAGE_FOLDER }}?${{ secrets.STORAGE_ACCOUNT_SAS }}"
+          DESTINATION="https://${{ secrets.STORAGE_ACCOUNT_NAME }}.blob.core.windows.net/${{ env.STORAGE_CONTAINER }}?${{ secrets.STORAGE_ACCOUNT_SAS_TOKEN }}"
           echo $DESTINATION   
           #Download and install azcopy 
           wget -O azcopy.tar.gz https://aka.ms/downloadazcopy-v10-linux
