@@ -51,7 +51,7 @@ jobs:
         run: |
           mkdir output 
           sudo chmod -R 755 output
-          mkdir output/output-child
+          mkdir output/${{ env.OUTPUT_FOLDER }}
           sudo chmod -R 755 output/${{ env.OUTPUT_FOLDER }}
           mkdir output/${{ env.OUTPUT_FOLDER }}/${{ env.OUTPUT_SUBFOLDER_HOL }}
           sudo chmod -R 755 output/${{ env.OUTPUT_FOLDER }}/${{ env.OUTPUT_SUBFOLDER_HOL }}
