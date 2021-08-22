@@ -61,6 +61,7 @@ jobs:
       # Create HTML files
       - name: 'Create HOL HTML Files'
         run: |
+          IFS=$';'
           FILE_LIST_MD=$(printf '%s;' ${{ env.MARKDOWN_ROOT_HOL }}/*.md)
           #echo ${FILE_LIST_MD}
           IFS=';' read -ra MDFILES <<< ${FILE_LIST_MD}
@@ -74,6 +75,7 @@ jobs:
           
       - name: 'Create WDS HTML Files'
         run: |
+          IFS=$';'
           FILE_LIST_WDS=$(printf '%s;' ${{ env.MARKDOWN_ROOT_WDS }}/*.md)
           #echo ${FILE_LIST_WDS}
           IFS=';' read -ra WDSMDFILES <<< ${FILE_LIST_WDS}
